@@ -1,5 +1,16 @@
 version: '3.6'
 services:
+  nginx-ports:
+    image: nginx
+    container_name: nginx-ports
+    restart: always
+    ports:
+      - "9039:9039"
+    volumes:
+      - "./nginx_setting:/etc/nginx/nginx.conf"
+    environment:
+      TZ: Asia/Shanghai
+
   tduck-app:
     environment:
       #      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.driver
@@ -34,6 +45,7 @@ services:
     image: redis:6.2.1
     ports:
       - 36379:6379
+    restart: always
     volumes:
       - redis_data:/data
   redis-commander:
@@ -63,8 +75,6 @@ services:
   tduck-front:
     image: nginx:1.21.0
     restart: always
-    ports:
-      - 43039:80
     volumes:
       - ./front:/usr/share/nginx/html/
       - nginx_log:/var/log/nginx
