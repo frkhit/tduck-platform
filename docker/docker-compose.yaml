@@ -5,7 +5,7 @@ services:
     container_name: nginx-ports
     restart: always
     ports:
-      - "9039:9039"
+      - "43039:43039"
     volumes:
       - "./nginx_setting:/etc/nginx/nginx.conf"
     environment:
@@ -36,10 +36,7 @@ services:
     image: "tecdo/tduck"
     ports:
       - 23569:8999
-
     restart: always
-
-
 
   tduck-redis:
     image: redis:6.2.1
@@ -48,6 +45,7 @@ services:
     restart: always
     volumes:
       - redis_data:/data
+
   redis-commander:
     container_name: redis-commander
     hostname: redis-commander
@@ -57,7 +55,6 @@ services:
       - REDIS_HOSTS=local:$REDIS_HOST:$REDIS_PORT
     ports:
       - "28083:8081"
-
 
   tduck-mysql:
     image: mysql:8
@@ -69,7 +66,7 @@ services:
       - 43033:3306
     volumes:
       - mysql_data3:/var/lib/mysql
-      - ./init-db:/docker-entrypoint-initdb.d:ro
+      - "./init-db:/docker-entrypoint-initdb.d"
     command: --default-authentication-plugin=mysql_native_password
 
   tduck-front:

@@ -51,7 +51,7 @@ http {
 	##
 
 	server {
-		listen 9039;
+		listen 43039;
 
 		location / {
              proxy_pass http://tduck-front:80;
